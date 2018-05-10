@@ -1,0 +1,17 @@
+Survey points notes
+
+Issues
+
+* Duplicate points for GR Greg SM (809) - survey ID points 204 and 205
+* survey point 175 marked as inundation outline incorrectly - is this the catchment outlet?
+
+changelog
+
+09 May 2018
+
+* sites exclude inundation outlines
+* survey ID points 175-200 changed from description wetland outlet to description inundation outline
+* added separate identifiers for duplicate sampling feature code names (Wetland + Description) for survey ID points 67, 76, 77, 96, 97, 112, 205, 207, 220, 227, 228, 271, 273, 296, 306. 
+
+10 May 2018
+
