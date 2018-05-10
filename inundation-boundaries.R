@@ -1,7 +1,13 @@
 # inundation boundaries
+library(dplyr)
+library(rgdal) # spatial data types
+library(rgeos) # spatial 
+library(sf) # spatial
+library(uuid) # unique ids
+library(readr)
+library(tidyr)
 
 ib <- read_csv("survey_points_inundation.csv")
-# write_csv(ib, "survey_points_inundation.csv")
 
 # convert to spatial
 coordinates(ib) <- ib[,c(2,3)]
