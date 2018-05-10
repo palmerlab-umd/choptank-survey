@@ -3,9 +3,10 @@ library(dplyr)
 library(rgdal) # spatial data types
 library(rgeos) # spatial 
 library(sf) # spatial
-library(uuid) # unique ids
 library(readr)
 library(tidyr)
+library(magrittr)
+library(leaflet)
 
 ib <- read_csv("survey_points_inundation.csv")
 
@@ -29,6 +30,7 @@ ib_sf2 <- ib_sf %>%
 ib_polygons <- ib_sf2 %>% 
   arrange(Survey_ID) %>%
   summarise(by = list(ib_sf2$Wetland), do_union = FALSE) %>%
+  dplyr::select(-by) %>%
   st_cast(to = "LINESTRING") %>%
   st_cast(to = "POLYGON")
 
