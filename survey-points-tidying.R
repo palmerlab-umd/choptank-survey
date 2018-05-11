@@ -7,7 +7,7 @@ library(uuid) # unique ids
 library(readr)
 library(tidyr)
 
-survey_points <- read_csv("../maps/survey_final_klh.csv")
+survey_points <- read_csv("survey_final_klh.csv")
 
 # separate out inundation boundary points from sites
 # ib points will be results
@@ -38,8 +38,16 @@ site_duplicates <- new_sites %>%
   mutate(samplingfeaturecode_dup = paste(samplingfeaturecode, dup_no)) 
 
 # replace duplicate names in new sites data frame
-new_sites[new_sites$Survey_ID %in% site_duplicates$Survey_ID, "samplingfeaturecode"] <- 
-  site_duplicates$samplingfeaturecode_dup
+# this needs to be sorted correctly
+# merge on survey ID
+new_sites2 <- left_join(new_sites, 
+                        dplyr::select(site_duplicates, Survey_ID, samplingfeaturecode_dup)
+                        # by = c("Survey_ID" = "Survey_ID")
+                        )
+new_sites2[!is.na(new_sites2$samplingfeaturecode_dup), "samplingfeaturecode"] <- 
+  new_sites2[!is.na(new_sites2$samplingfeaturecode_dup), "samplingfeaturecode_dup"]
+
+new_sites <- new_sites2 %>% dplyr::select(-samplingfeaturecode_dup)
 
 # check again to see if there are any duplicate sampling feature codes
 new_sites[duplicated(new_sites$samplingfeaturecode),]
